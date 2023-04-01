@@ -4,52 +4,60 @@ import java.awt.event.*;
 
 public class Panel extends JPanel implements KeyListener{
 
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    snake mySnake = new snake();
+    int xPos;
+    int yPos;
+    int xVelocity=10;
+    int yVelocity=10;
+    String key="";
+    snake mySnake;
 
     Panel(){
-        this.addKeyListener(this);
-    }
+        mySnake = new snake(0,0);
+        this.setLayout(null);
+        this.setBackground(Color.BLACK);
 
-    // paint the snake
-    public void paint(Graphics g){
-        g.setColor(Color.green);
-        g.fillRect(0, 0, 10, 150);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode=e.getKeyCode();
-        switch(keyCode){
-            // right arrow key
-            case KeyEvent.VK_RIGHT:
-                snake(10,0);
-                break;
-            // left arrow key
-            case KeyEvent.VK_LEFT:
-                snake(10,0);
-                break;
-            case KeyEvent.VK_UP:
-                snake(10,0);
-                break;
-            case KeyEvent.VK_DOWN:
-                snake(10,0);
-                break;
-
-        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
     }
 
-    
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("u pressed a key");
 
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_UP:
+                key="U";
+                break;
+
+            case KeyEvent.VK_DOWN:
+                key="D";
+                break;
+
+            case KeyEvent.VK_RIGHT:
+                key="R";
+                break;
+
+            case KeyEvent.VK_LEFT:
+                key="L";
+                break;
+        }
+        repaint();
+    }
+
+    // paint the snake
+    public void paint(Graphics g){
+        mySnake.paint(g, key);
+    }
+
+    // when running the program
+    public void run(){
+
+    }
 
 }
